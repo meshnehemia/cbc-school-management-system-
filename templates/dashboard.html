@@ -5,9 +5,10 @@
         <input type="text" placeholder="Search...">
     </div>
     <div class="user-profile">
-        <img src="../static/systemstatic/images/sampleadmin.jpg" alt="User">
+        <img src="{{ url_for('static', filename='images/adminprofiles/' ~ details['profile_picture']) }}" alt="User">
+
         <div>
-            <h4>Admin User</h4>
+            <h4>{{ details['first_name'] }}  {{ details['last_name']}}</h4>
             <p>Head Teacher</p>
         </div>
     </div>
@@ -108,7 +109,7 @@
                 </div>
                 <div class="activity-details">
                     <h4>New Student Enrolled</h4>
-                    <p>John Doe - Grade 2</p>
+                    <p>John kididi - Grade 2</p>
                     <div class="activity-time">3 hours ago</div>
                 </div>
             </div>

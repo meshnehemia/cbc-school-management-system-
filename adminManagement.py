@@ -1,11 +1,21 @@
-from flask import session, render_template, redirect, url_for
-
+from flask import jsonify, session, render_template, redirect, url_for
+from database.databaseinsert.userinsertion import updateUsers
+from database.databaseretrivals.getuser import selectusers
 def admin(app):
     @app.route('/admin')
     def admindashboard():
         if session.get('type') == 'admin':
-            return render_template('index.html')
-        return redirect(url_for('index'))
+            details = {
+                'first_name': session.get('first_name'),
+                'second_name': session.get('second_name'),
+                'last_name': session.get('last_name'),
+                'email': session.get('email'),
+                'phone_number': session.get('phone_number'),
+                'profile_picture': session.get('profile_picture'),
+                'tsc_number': session.get('tsc_number')
+            }
+            return render_template('index.html' , details=details)
+        return redirect(url_for('login'))
     @app.route('/studentsmanagement')
     def studentsmanagement():
         if session.get('type') == 'admin':
@@ -53,3 +63,17 @@ def admin(app):
         if session.get('type') == 'admin':
             return render_template('finances.html')
         return redirect(url_for('index'))
+
+    @app.route('/insertadmin')
+    def insertadmin():
+        newadmin = updateUsers()
+        addnewadmin = newadmin.adminuser()
+        adduser = addnewadmin.adduser('joshua','james','micky','josh@gmail.com','+254757316903',1234,'133878734424447098.jpg','ts12743','12436493')
+        return jsonify(adduser)
+    
+def adminlogin(email,password):
+        databaseretrival = selectusers()
+        adminuser = databaseretrival.adminuser()
+        login , message , user = adminuser.login(email,password)
+        print(login, message, user)
+        return login, message, user
