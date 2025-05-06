@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance - CBC System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .main-content {
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Attendance Marking Specific Styles */
+        .attendance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .date-picker {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .student-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .student-row {
+            display: grid;
+            grid-template-columns: 50px 2fr 1fr 1fr 1fr;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .student-row:last-child {
+            border-bottom: none;
+        }
+
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .status-select.present {
+            background: #e8f5e9;
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .status-select.absent {
+            background: #ffebee;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .status-select.late {
+            background: #fff8e1;
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+
+        .save-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .student-row {
+                grid-template-columns: 40px 1fr 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <!-- Main Content -->
+            <div class="header">
+                <h1 class="page-title">Mark Attendance</h1>
+                <div class="attendance-header">
+                    <input type="date" class="date-picker" value="2023-11-01">
+                    <button class="save-button">
+                        <i class="fas fa-save"></i> Save Attendance
+                    </button>
+                </div>
+            </div>
+
+            <!-- Student List -->
+            <div class="student-list">
+                <!-- Student 1 -->
+                <div class="student-row">
+                    <img src="https://randomuser.me/api/portraits/boys/32.jpg" 
+                         class="student-avatar" 
+                         alt="Brian Kamau">
+                    <div>
+                        <h4>Brian Kamau</h4>
+                        <p>ADM2023001 • Grade 3 Green</p>
+                    </div>
+                    <select class="status-select present">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                        <option value="late">Late</option>
+                    </select>
+                    <input type="text" placeholder="Add note..." 
+                           class="status-note">
+                </div>
+
+                <!-- Student 2 -->
+                <div class="student-row">
+                    <img src="https://randomuser.me/api/portraits/girls/45.jpg" 
+                         class="student-avatar" 
+                         alt="Sarah Wanjiru">
+                    <div>
+                        <h4>Sarah Wanjiru</h4>
+                        <p>ADM2023002 • Grade 3 Green</p>
+                    </div>
+                    <select class="status-select late">
+                        <option value="late">Late</option>
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                    </select>
+                    <input type="text" placeholder="Add note..." 
+                           class="status-note">
+                </div>
+
+                <!-- Student 3 -->
+                <div class="student-row">
+                    <img src="https://randomuser.me/api/portraits/boys/22.jpg" 
+                         class="student-avatar" 
+                         alt="David Ochieng">
+                    <div>
+                        <h4>David Ochieng</h4>
+                        <p>ADM2023003 • Grade 3 Green</p>
+                    </div>
+                    <select class="status-select present">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                        <option value="late">Late</option>
+                    </select>
+                    <input type="text" placeholder="Add note..." 
+                           class="status-note">
+                </div>
+
+                <!-- Student 4 -->
+                <div class="student-row">
+                    <img src="https://randomuser.me/api/portraits/girls/68.jpg" 
+                         class="student-avatar" 
+                         alt="Grace Akinyi">
+                    <div>
+                        <h4>Grace Akinyi</h4>
+                        <p>ADM2023004 • Grade 3 Green</p>
+                    </div>
+                    <select class="status-select absent">
+                        <option value="absent">Absent</option>
+                        <option value="present">Present</option>
+                        <option value="late">Late</option>
+                    </select>
+                    <input type="text" placeholder="Add note..." 
+                           class="status-note">
+                </div>
+
+                <!-- Student 5 -->
+                <div class="student-row">
+                    <img src="https://randomuser.me/api/portraits/boys/45.jpg" 
+                         class="student-avatar" 
+                         alt="James Mwangi">
+                    <div>
+                        <h4>James Mwangi</h4>
+                        <p>ADM2023005 • Grade 3 Green</p>
+                    </div>
+                    <select class="status-select present">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                        <option value="late">Late</option>
+                    </select>
+                    <input type="text" placeholder="Add note..." 
+                           class="status-note">
+                </div>
+            </div>
+
+
+    <script>
+        // Update status select colors based on selection
+        document.querySelectorAll('.status-select').forEach(select => {
+            select.addEventListener('change', function() {
+                this.className = `status-select ${this.value}`;
+            });
+        });
+
+        // Save attendance handler
+        document.querySelector('.save-button').addEventListener('click', () => {
+            alert('Attendance saved successfully!');
+            // Add actual save logic here
+        });
+    </script>
+</body>
+</html>

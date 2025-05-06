@@ -1,0 +1,22 @@
+{% include 'header.html' %}
+    <link rel="stylesheet" href="../static/systemstatic/css/admincss/index.css" > 
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+         {% include 'sidebar.html' %}
+        
+        <!-- Main Content -->
+        <div class="main-content" id="main-content">
+            {% include 'dashboard.html' %}
+        </div>
+    </div>
+
+    <!-- You would add JavaScript for interactivity here -->
+     <script src="../static/systemstatic/js/index.js"></script>
+    <script>
+        // This would include chart initialization, etc.
+        console.log("CBC Dashboard loaded");
+    </script>
+</body>
+</html>

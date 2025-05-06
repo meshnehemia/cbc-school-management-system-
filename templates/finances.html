@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Reports | School Finance</title>
+    <style>
+        .card { background: white; 
+            border-radius: 5px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 20px; 
+        }
+        .card-header { padding: 15px; 
+            border-bottom: 1px solid #eee; 
+            font-weight: 600; 
+        }
+        .card-body {
+             padding: 15px; 
+            }
+        .btn { 
+            padding: 8px 15px;
+            border: none; border-radius: 4px;
+            cursor: pointer; 
+        }
+        .btn-primary { 
+            background: #007bff; 
+            color: white; 
+        }
+        .btn-success { 
+            background: #28a745;
+            color: white; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            padding: 12px; 
+            text-align: left; 
+            border-bottom: 1px solid #ddd; 
+        }
+        th { 
+            background: #f8f9fa; 
+            font-weight: 600; 
+        }
+        .finances_dash{
+            display: flex;
+        }
+        .finances_dash div{
+            margin:0 7px;
+            padding-right:2vw;
+        }
+    </style>
+</head>
+<body>
+    <!-- dashboard header -->
+        <div class="header">
+            <h1 class="page-title">Financial Reports</h1>
+        </div>
+        <div class="finances_dash">
+            <div class="card">
+               <div>
+                    <h4> Financial notifications</h4>
+                    <h1>0</h1>
+               </div>
+            </div>
+            <div class="card">
+                <div>
+                    <h4>Activities performed</h4>
+                    <h1>0</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <h4>Financial Activities</h4>
+                    <h1>0</h1>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <h4>Financial officer</h4>
+                    <p><i>manage financial officers here</i></p>
+                    <h1>1</h1>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- Report Filters -->
+        <div class="card">
+            <div class="card-header">Generate Report</div>
+            <div class="card-body">
+                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <select style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                        <option>Select Report Type</option>
+                        <option>Income Statement</option>
+                        <option>Balance Sheet</option>
+                        <option>Fee Collection</option>
+                    </select>
+                    <input type="date" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                    <input type="date" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                    <button class="btn btn-primary">Generate</button>
+                    <button class="btn btn-success">Export (PDF)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sample Report: Income Statement -->
+        <div class="card">
+            <div class="card-header">Income Statement (Jan 2023 - Oct 2023)</div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Revenue</strong></td>
+                            <td>$85,420</td>
+                        </tr>
+                        <tr>
+                            <td>Tuition Fees</td>
+                            <td>$65,000</td>
+                        </tr>
+                        <tr>
+                            <td>Donations</td>
+                            <td>$10,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Expenses</strong></td>
+                            <td>$42,150</td>
+                        </tr>
+                        <tr>
+                            <td>Salaries</td>
+                            <td>$25,000</td>
+                        </tr>
+                        <tr>
+                            <td>Utilities</td>
+                            <td>$3,500</td>
+                        </tr>
+                        <tr style="font-weight: bold; border-top: 1px solid #000;">
+                            <td>Net Profit</td>
+                            <td>$43,270</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+</html>

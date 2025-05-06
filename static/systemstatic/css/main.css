@@ -1,0 +1,36 @@
+/* Global Styles */
+:root {
+    --primary-color: #1e5f8c;
+    --secondary-color: #2d8fd5;
+    --accent-color: #ff6b6b;
+    --light-gray: #f5f7fa;
+    --dark-gray: #333;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+}
+.sectionloading{
+    width: 100%;
+    height: 100vh;
+    background-color:rgba(120, 185, 180, 0.5);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    z-index: 999;
+    display: none;
+}
