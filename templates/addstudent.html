@@ -1,0 +1,123 @@
+
+            <div class="header">
+                <h1 class="page-title">Register New Student</h1>
+            </div>
+            
+            <div class="form-container">
+                <div class="form-header">
+                    <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+                </div>
+                
+                <form id="studentRegistrationForm" enctype="multipart/form-data">
+                    <div class="profile-section">
+                        <div class="profile-picture-preview" id="profilePreview">
+                            <i class="fas fa-user-graduate"></i>
+                            <img id="profileImage" src="" alt="Profile Preview">
+                        </div>
+                        
+                        <div class="profile-upload">
+                            <input type="file" id="profilePicture" class="custom-file-input" accept="image/*">
+                            <label for="profilePicture" class="custom-file-label">
+                                <i class="fas fa-upload"></i> Upload Profile Picture
+                            </label>
+                            <p class="file-info">JPG or PNG, max 2MB</p>
+                            
+                            <div class="status-toggle">
+                                <span class="toggle-label">Account Status:</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="activeStatus" name="active_status" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span id="statusText">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="first_name" class="form-control" placeholder="Enter first name" required>
+                            <div class="error-message" id="firstName-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" id="middleName" name="second_name" class="form-control" placeholder="Enter middle name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="last_name" class="form-control" placeholder="Enter last name" required>
+                            <div class="error-message" id="lastName-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="grade">Grade/Class *</label>
+                            <select id="grade" class="select-control" name="grade" required>
+                                <option value="">Select grade/class</option>
+                                <option value="Grade 1">Grade 1</option>
+                                <option value="Grade 2">Grade 2</option>
+                                <option value="Grade 3">Grade 3</option>
+                                <option value="Grade 4">Grade 4</option>
+                                <option value="Grade 5">Grade 5</option>
+                                <option value="Grade 6">Grade 6</option>
+                                <option value="Grade 7">Grade 7</option>
+                                <option value="Grade 8">Grade 8</option>
+                                <option value="Grade 9">Grade 9</option>
+                                <option value="Grade 10">Grade 10</option>
+                                <option value="Grade 11">Grade 11</option>
+                                <option value="Grade 12">Grade 12</option>
+                            </select>
+                            <div class="error-message" id="grade-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter email address" required>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone_number" class="form-control" placeholder="Enter phone number" required>
+                            <div class="error-message" id="phone-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">UPA number *</label>
+                            <input type="text" id="upa" name="upa" class="form-control" placeholder="enter Upa Number" required>
+                            
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Password *</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Confirm password" required>
+                            <div class="error-message" id="password-error"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender *</label>
+                            <select name="gender" id="gender" name="gender" class="form-control">
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i> Register Student
+                        </button>
+                    </div>
+                </form>
+            </div>
