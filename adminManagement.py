@@ -55,7 +55,9 @@ def admin(app):
             else:
                 allstudents = "no student"
             print(allstudents)
-            return render_template("studentsadmin.html", allstudents = allstudents)
+            activestudents = [student for student in allstudents if student[12] != 'active' or student[12] == 'on']
+            print(activestudents)
+            return render_template("studentsadmin.html", allstudents = allstudents, activestudents = activestudents)
         return redirect(url_for('login'))
 
     @app.route('/perfomance')

@@ -1,6 +1,7 @@
 let nav_items = document.getElementsByClassName('nav-item');
 let main_page = document.getElementById('main-content');
 let allteachers = [];
+let allstudents = [];
 Array.from(nav_items).forEach(button => {
     button.addEventListener('click', (event) => {
         Array.from(nav_items).forEach(btn => btn.classList.remove('active'));
@@ -9,35 +10,8 @@ Array.from(nav_items).forEach(button => {
         if(button.id == 'students'){
             fetch('/studentsmanagement').then(response => response.text()).then(data=>{
                     main_page.innerHTML = data;
-                    // Student Modal functionality
-                    function openStudentModal() {
-                        document.getElementById('studentModal').style.display = 'flex';
-                    }
-                    function closeStudentModal() {
-                        document.getElementById('studentModal').style.display = 'none';
-                    }
-                    // Close modal when clicking outside
-                    window.onclick = function(event) {
-                        const modal = document.getElementById('studentModal');
-                        if (event.target == modal) {
-                            modal.style.display = 'none';
-                        }
-                    }
-                    // Tab functionality
-                    function openTab(evt, tabName) {
-                        const tabContents = document.getElementsByClassName('tab-content');
-                        for (let i = 0; i < tabContents.length; i++) {
-                            tabContents[i].classList.remove('active');
-                        }
-
-                        const tabs = document.getElementsByClassName('tab');
-                        for (let i = 0; i < tabs.length; i++) {
-                            tabs[i].classList.remove('active');
-                        }
-
-                        document.getElementById(tabName).classList.add('active');
-                        evt.currentTarget.classList.add('active');
-                    }
+                    loadteachercript();
+                    
             });  
         }else if(button.id == 'teachers'){
             fetch('/teachersManagement').then(response => response.text()).then(data=>{
@@ -155,5 +129,11 @@ Array.from(nav_items).forEach(button => {
 function loadteacherscript(){
     const rawData = document.getElementById("teachers-data").dataset.teachers;
     allteachers = JSON.parse(rawData);
-    console.log(allteachers);
 }
+
+function loadteachercript(){
+    const rawData = document.getElementById("students-data").dataset.students;
+    allstudents = JSON.parse(rawData);
+    console.log(allstudents);
+}
+

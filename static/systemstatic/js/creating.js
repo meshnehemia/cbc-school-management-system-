@@ -32,9 +32,45 @@ function openTeacherModal(teacherId) {
         values[5].textContent = qualifications;
     
 }
-function closeTeacherModal() {
-    document.getElementById('teacherModal').style.display = 'none';
+
+// Student Modal functionality
+function openStudentModal(studentid) {
+    document.getElementById('studentModal').style.display = 'flex';
+    const student = allstudents.find(s => s[0] === studentid);
+    document.querySelector('.student-profile-img').src = `/static/images/profile_images/${student[10]}`;
+    document.getElementById('studentName').innerHTML = `${student[1]} ${student[2]}`;
+    document.getElementById('AdmissionNumber').innerHTML =`admission:  ${student[7]}`;
+    document.getElementById('grade').innerHTML =`currently in ${student[3]}`;
+    document.getElementById('studentactive').innerHTML = student[12];
+    document.getElementById('Register').innerHTML = student[11];
+    document.getElementById('gender').innerHTML = student[5];
 }
+function closeStudentModal() {
+    document.getElementById('studentModal').style.display = 'none';
+}
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('studentModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+// Tab functionality
+function openTab(evt, tabName) {
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+    }
+
+    const tabs = document.getElementsByClassName('tab');
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
+
+    document.getElementById(tabName).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
 
 // Close modal when clicking outside
 window.onclick = function(event) {
@@ -290,3 +326,4 @@ function addStudent(){
     });  
     
 }
+

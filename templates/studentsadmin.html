@@ -3,6 +3,7 @@
             <div class="header">
                 <h1 class="page-title">Students Management</h1>
                 <div class="action-buttons">
+                    <div id="students-data" data-students='{{ allstudents | tojson | safe }}'></div>
                     <!-- <button class="btn btn-outline">
                         <i class="fas fa-download"></i> Export
                     </button> -->
@@ -73,11 +74,11 @@
             <!-- Student Stats -->
             <div class="student-stats">
                 <div class="stat-card">
-                    <h3>1,245</h3>
+                    <h3>{{ allstudents|length }}</h3>
                     <p>Total Students</p>
                 </div>
                 <div class="stat-card">
-                    <h3>1,180</h3>
+                    <h3>{{ activestudents|length }}</h3>
                     <p>Active Students</p>
                 </div>
                 <div class="stat-card">
@@ -95,7 +96,7 @@
                 <div class="table-header">
                     <h3 class="table-title">All Students</h3>
                     <div>
-                        <span>Showing 1-10 of 1,245 students</span>
+                        <span>Showing 1- {{ allstudents|length }}</span>
                     </div>
                 </div>
                 <table>
@@ -127,15 +128,15 @@
                                 <td><span class="status status-inactive">{{ student[12] }}</span></td>
                             {% endif %}
                             <td style="display: flex;">
-                                <button class="action-btn view-btn" onclick="openStudentModal()">
-                                    <i class="fas fa-eye"></i>
+                                <button class="action-btn view-btn" onclick="openStudentModal({{ student[0] }})">
+                                    <h2>view</h2>
                                 </button>
                                 <button class="action-btn edit-btn">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="action-btn delete-btn">
+                                <!-- <button class="action-btn delete-btn">
                                     <i class="fas fa-trash"></i>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
                         {% endfor %}
@@ -151,38 +152,30 @@
                 <span class="close-btn" onclick="closeStudentModal()">&times;</span>
             </div>
             <div class="student-profile">
-                <img src="https://randomuser.me/api/portraits/boys/32.jpg" alt="Student" class="student-profile-img">
+                <img src="" alt="Student" class="student-profile-img">
                 <div class="student-info">
-                    <h3>Brian Kamau</h3>
-                    <p>Admission No: ADM2023001</p>
-                    <p>Grade: Grade 3 - Green</p>
-                    <p>Status: <span class="status status-active">Active</span></p>
+                    <h3 id="studentName">Brian Kamau</h3>
+                    <p id="AdmissionNumber">Admission No: ADM2023001</p>
+                    <p id="grade">Grade: Grade 3 - Green</p>
+                    <p>Status: <span class="status status-active" id="studentactive">Active</span></p>
                 </div>
             </div>
             <div class="student-details">
                 <div class="detail-group">
-                    <label>Date of Birth</label>
-                    <div class="detail-value">15/03/2016</div>
+                    <label>Date of Registered</label>
+                    <div class="detail-value" id="Register">15/03/2016</div>
                 </div>
                 <div class="detail-group">
                     <label>Gender</label>
-                    <div class="detail-value">Male</div>
-                </div>
-                <div class="detail-group">
-                    <label>Date Joined</label>
-                    <div class="detail-value">05/01/2023</div>
-                </div>
-                <div class="detail-group">
-                    <label>Age</label>
-                    <div class="detail-value">7 years</div>
+                    <div class="detail-value" id="gender">Male</div>
                 </div>
                 <div class="detail-group">
                     <label>Parent/Guardian</label>
-                    <div class="detail-value">James Kamau</div>
+                    <div class="detail-value">-- </div>
                 </div>
                 <div class="detail-group">
                     <label>Parent Contact</label>
-                    <div class="detail-value">+254 712 345 678</div>
+                    <div class="detail-value">--</div>
                 </div>
             </div>
 
@@ -309,7 +302,7 @@
 
             <div class="modal-footer" style="margin-top: 20px; display: flex; justify-content: flex-end;">
                 <button class="btn btn-outline" onclick="closeStudentModal()">Close</button>
-                <button class="btn btn-primary">Generate Report</button>
+                <!-- <button class="btn btn-primary">Generate Report</button> -->
             </div>
         </div>
     </div>
