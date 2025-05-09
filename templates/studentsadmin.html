@@ -32,7 +32,7 @@
                             <option>Grade 6</option>
                         </select>
                     </div>
-                    <div class="filter-group">
+                    <!-- <div class="filter-group">
                         <label>Stream</label>
                         <select class="filter-control">
                             <option>All Streams</option>
@@ -41,7 +41,7 @@
                             <option>Red</option>
                             <option>Blue</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="filter-row">
                     <div class="filter-group">
@@ -102,7 +102,7 @@
                     <thead>
                         <tr>
                             <th>Student</th>
-                            <th>Admission No.</th>
+                            <th>UPA No.</th>
                             <th>Grade/Class</th>
                             <th>Parent</th>
                             <th>Status</th>
@@ -110,18 +110,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for student in allstudents %}
                         <tr>
                             <td>
                                 <div class="student-name">
-                                    <img src="https://randomuser.me/api/portraits/boys/32.jpg" alt="Student" class="student-avatar">
-                                    <span>Brian Kamau</span>
+                                    <img src="{{ url_for('static', filename='images/profile_images/' ~ student[10]) }}" alt="Student" class="student-avatar">
+                                    <span>{{ student[1] }} &nbsp; {{ student[2] }}</span>
                                 </div>
                             </td>
-                            <td>ADM2023001</td>
-                            <td>Grade 3 - Green</td>
-                            <td>James Kamau</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td>
+                            <td>{{ student[7] }}</td>
+                            <td>{{ student[3] }}</td>
+                            <td>--</td>
+                            {% if  student[12] == 'on' or student[12] == 'active' %}
+                                <td><span class="status status-active">Active</span></td>
+                            {% else %}
+                                <td><span class="status status-inactive">{{ student[12] }}</span></td>
+                            {% endif %}
+                            <td style="display: flex;">
                                 <button class="action-btn view-btn" onclick="openStudentModal()">
                                     <i class="fas fa-eye"></i>
                                 </button>
@@ -133,75 +138,7 @@
                                 </button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="student-name">
-                                    <img src="https://randomuser.me/api/portraits/girls/45.jpg" alt="Student" class="student-avatar">
-                                    <span>Sarah Wanjiru</span>
-                                </div>
-                            </td>
-                            <td>ADM2023002</td>
-                            <td>Grade 4 - Yellow</td>
-                            <td>Mary Wanjiku</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openStudentModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="student-name">
-                                    <img src="https://randomuser.me/api/portraits/boys/22.jpg" alt="Student" class="student-avatar">
-                                    <span>David Ochieng</span>
-                                </div>
-                            </td>
-                            <td>ADM2023003</td>
-                            <td>PP2 - Red</td>
-                            <td>Susan Atieno</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openStudentModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="student-name">
-                                    <img src="https://randomuser.me/api/portraits/girls/68.jpg" alt="Student" class="student-avatar">
-                                    <span>Grace Akinyi</span>
-                                </div>
-                            </td>
-                            <td>ADM2022004</td>
-                            <td>Grade 6 - Blue</td>
-                            <td>Peter Odhiambo</td>
-                            <td><span class="status status-inactive">Alumni</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openStudentModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

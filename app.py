@@ -36,13 +36,13 @@ def login():
             else:
                 return render_template('login.html', message=message)
         elif type == 'teacher':
-            return redirect(url_for('teachersManagement'))
+            return render_template('pageunderconstruction.html')
         elif type == 'student':
-            return redirect(url_for('studentsmanagement'))
+            return render_template('pageunderconstruction.html')
         elif type == 'finance':
-            return redirect(url_for('finances'))
+            return render_template('pageunderconstruction.html')
         else:
-            return render_template('login.html')
+            return render_template('pageunderconstruction.html')
     if autheticate():
         return redirect(url_for('admindashboard'))
     else:

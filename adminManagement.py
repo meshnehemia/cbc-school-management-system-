@@ -3,6 +3,9 @@ from database.databaseinsert.userinsertion import updateUsers
 from werkzeug.utils import secure_filename
 import uuid, os
 from database.databaseretrivals.getuser import selectusers
+from database.databaseretrivals.getactivities import Activities
+from database.databaseretrivals.getteachers import teachers
+from database.databaseretrivals.getstudent import students
 def admin(app):
     @app.route('/admin')
     def admindashboard():
@@ -17,63 +20,107 @@ def admin(app):
                 'profile_picture': session.get('profile_picture'),
                 'tsc_number': session.get('tsc_number')
             }
-            return render_template('index.html' , details=details)
+            history = []
+            teachers_number = 0
+            students_number = 0
+            
+            adminstatus, adminmessage, adminshistory = Activities().getAdminHistory()
+            otherstatus, othermessage, othershistory = Activities().teachersHistory()
+            if adminstatus:
+                history = adminshistory
+                
+            if otherstatus:
+                history.append(othershistory)
+            print(history)
+            teachersstates , teachersmessage , teachersnum = teachers().teachersCount()
+            if teachersstates:
+                teachers_number = teachersnum
+            print(teachers_number)
+            studentStatus, studentmessage,studentsnumber = students().studentsCount()
+            if studentStatus:
+                students_number = studentsnumber
+            print(students_number)
+            
+            
+            return render_template('index.html' , details=details, history= history , students_number=students_number, teachers_number=teachers_number)
         return redirect(url_for('login'))
     @app.route('/studentsmanagement')
     def studentsmanagement():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
-            return render_template("studentsadmin.html")
-        return redirect(url_for('index'))
+            allstudents = []
+            status, message, getstudents = students().allStudents()
+            if status:
+                allstudents = getstudents
+            else:
+                allstudents = "no student"
+            print(allstudents)
+            return render_template("studentsadmin.html", allstudents = allstudents)
+        return redirect(url_for('login'))
 
     @app.route('/perfomance')
     def studentperfomancemanagement():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template('studentperfomanceadmin.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/teachersManagement')
     def teachersManagement():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
-            return render_template('teachersavailable.html')
-        return redirect(url_for('index'))
+            teachersavailable = []
+            tstatus, tmessage, tavailable = teachers().allTeachers()
+            if tstatus:
+                teachersavailable = tavailable
+            else:
+                teachersavailable = "no teachers registed"
+            print(teachersavailable)
+            active_teachers = [teacher for teacher in teachersavailable if teacher[13] == 'active']
+            onleave_teachers = [teacher for teacher in teachersavailable if teacher[13] == 'onleave']
+            notactive_teachers = [teacher for teacher in teachersavailable if teacher[13] != 'active' and teacher[13] != 'onleave']
+            return render_template('teachersavailable.html', 
+                                   allteachers=teachersavailable,
+                                   active_teachers = active_teachers,
+                                   onleave_teachers = onleave_teachers,
+                                    notactive_teachers = notactive_teachers
+                                    )
+        return redirect(url_for('login'))
 
     @app.route('/studentsattendance')
     def studentsattendance():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template('attendancemarking.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/curriculum')
     def admincurriculum():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template("admincurriculum.html")
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/reports')
     def adminreports():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template('adminreports.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/assessments')
     def assessment():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template('assessments.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/finances')
     def finances():
         if session.get('type') == 'admin':
             updateUsers().adminuser().lastseenupdate(session['id'])
             return render_template('finances.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     
     @app.route('/addstudent', methods=['GET', 'POST'])
     def addstudent():
@@ -101,7 +148,8 @@ def admin(app):
                     image_path = os.path.join('static/images/profile_images', image_name)
                     os.makedirs(os.path.dirname(image_path), exist_ok=True)
                     profile_picture.save(image_path)
-
+                else:
+                    image_name ="default.png"
                 # Save to DB with image_name
                 adminus = updateUsers()
                 addnewstudent = adminus.adminuser()
@@ -121,7 +169,7 @@ def admin(app):
                     return {'status': False, 'message': message}
 
             return render_template('addstudent.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     @app.route('/addteacher', methods=['GET', 'POST'])
     def addteacher():
@@ -172,7 +220,53 @@ def admin(app):
                     return jsonify({"status": False, "message": "Failed to add new teacher", "data": addt})
 
             return render_template('addteacher.html')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
+    
+    @app.route('/getstudentsbyfilter', methods=['POST'])
+    def studentfilter():
+        data = request.form
+        grade = data['grade']
+        gender = data['gender']
+        status = data['status']
+        status, message, values = students().filterstudent(grade,gender,status)
+        if status:
+            student = values
+        else:
+            student= "no student available"
+        return jsonify(student)
+    @app.route('/getstudentbyups', methods=['POST'])
+    def getstudentbyid():
+        data = request.form
+        ups = data['ups']
+        status, message, values =students().filterups(ups)
+        if status:
+            student = values
+        else:
+            student= "no student available"
+        return jsonify(student)
+    @app.route('/getsteachersbyfilter', methods=['POST'])
+    def getteacherfilter():
+        data = request.form
+        grade = data['grade']
+        status = data['status']
+        status, message, values = teachers().filter(grade,status)
+        if status:
+            teachersf = values
+        else:
+            teachersf= "no student available"
+        return jsonify(teachersf)
+        
+    @app.route('/getteachersbyts', methods = ['POST'])
+    def getteacherbyts():
+        data = request.form
+        ts = data['ts']
+        status, message, values = teachers().searchtsnumber(ts)
+        if status:
+            teachersf = values
+        else:
+            teachersf= "no student available"
+        return jsonify(teachersf)
+
     # @app.route('/insertadmin')
     # def insertadmin():
     #     newadmin = updateUsers()

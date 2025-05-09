@@ -1,5 +1,6 @@
 let nav_items = document.getElementsByClassName('nav-item');
 let main_page = document.getElementById('main-content');
+let allteachers = [];
 Array.from(nav_items).forEach(button => {
     button.addEventListener('click', (event) => {
         Array.from(nav_items).forEach(btn => btn.classList.remove('active'));
@@ -41,6 +42,7 @@ Array.from(nav_items).forEach(button => {
         }else if(button.id == 'teachers'){
             fetch('/teachersManagement').then(response => response.text()).then(data=>{
                     main_page.innerHTML = data;
+                    loadteacherscript();
             });  
         }else if(button.id == 'curriculum'){
             fetch('/curriculum').then(response => response.text()).then(data=>{
@@ -150,3 +152,8 @@ Array.from(nav_items).forEach(button => {
     });
 });
 
+function loadteacherscript(){
+    const rawData = document.getElementById("teachers-data").dataset.teachers;
+    allteachers = JSON.parse(rawData);
+    console.log(allteachers);
+}

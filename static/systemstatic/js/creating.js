@@ -1,6 +1,36 @@
 
-function openTeacherModal() {
+function openTeacherModal(teacherId) {
     document.getElementById('teacherModal').style.display = 'flex';
+        const teacher = allteachers.find(t => t[0] === teacherId);
+        // Data mapping based on tuple index
+        const fullName = `${teacher[1]} ${teacher[2]}`;
+        const grade = teacher[3];
+        const dob = teacher[5]; // dob or name again? (your index 5 is 'nehemia' — seems incorrect)
+        const email = teacher[6];
+        const idNumber = teacher[8];
+        const image = teacher[9];
+        const dateEmployed = new Date(teacher[10]).toLocaleDateString();
+        const tsc = teacher[11];
+        const phone = teacher[12];
+        const status = teacher[13];
+        const qualifications = teacher[3]; // maybe use 'grade' as qualification if you don't have a separate field
+
+        // Fill modal
+        document.querySelector('.teacher-profile-img').src = `/static/images/profile_images/${image}`;
+        document.querySelector('.teacher-info h3').textContent = fullName;
+        document.querySelector('.teacher-info p:nth-of-type(1)').textContent = `TSC Number: ${tsc}`;
+        document.querySelector('.teacher-info p:nth-of-type(2)').textContent = `Grade Level: ${grade}`;
+        document.querySelector('.teacher-info p:nth-of-type(3) .status').textContent = status;
+        document.querySelector('.teacher-info p:nth-of-type(3) .status').className = `status status-${status}`;
+
+        const values = document.querySelectorAll('.teacher-details .detail-value');
+        values[0].textContent = dob; // DOB — double check your index
+        values[1].textContent = idNumber;
+        values[2].textContent = phone;
+        values[3].textContent = email;
+        values[4].textContent = dateEmployed;
+        values[5].textContent = qualifications;
+    
 }
 function closeTeacherModal() {
     document.getElementById('teacherModal').style.display = 'none';
@@ -161,6 +191,12 @@ function addStudent(){
         // Toggle active status
         document.getElementById('activeStatus').addEventListener('change', function() {
             document.getElementById('statusText').textContent = this.checked ? 'Active' : 'Inactive';
+            if(document.getElementById('statusText').textContent == 'Active'){
+                document.getElementById('active_status').value = "active";
+            }else{
+                document.getElementById('active_status').value = "inactive";
+            }
+
         });
 
         // Form submission

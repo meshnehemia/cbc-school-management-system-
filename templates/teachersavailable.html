@@ -11,7 +11,7 @@
                     </button>
                 </div>
             </div>
-
+            <div id="teachers-data" data-teachers='{{ allteachers | tojson | safe }}'></div>
             <!-- Teacher Filters -->
             <div class="teacher-filters">
                 <div class="filter-row">
@@ -29,7 +29,7 @@
                             <option>Junior Secondary</option>
                         </select>
                     </div>
-                    <div class="filter-group">
+                    <!-- <div class="filter-group">
                         <label>Subject</label>
                         <select class="filter-control">
                             <option>All Subjects</option>
@@ -39,7 +39,7 @@
                             <option>Science</option>
                             <option>Social Studies</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="filter-row">
                     <div class="filter-group">
@@ -63,20 +63,20 @@
             <!-- Teacher Stats -->
             <div class="teacher-stats">
                 <div class="stat-card">
-                    <h3>68</h3>
+                    <h3>{{ allteachers|length }}</h3>
                     <p>Total Teachers</p>
                 </div>
                 <div class="stat-card">
-                    <h3>52</h3>
+                    <h3>{{ active_teachers|length }}</h3>
                     <p>Active Teachers</p>
                 </div>
                 <div class="stat-card">
-                    <h3>4</h3>
+                    <h3>{{ onleave_teachers|length }}</h3>
                     <p>On Leave</p>
                 </div>
                 <div class="stat-card">
-                    <h3>12</h3>
-                    <p>CBC Trained</p>
+                    <h3>{{ notactive_teachers|length }}</h3>
+                    <p>None active</p>
                 </div>
             </div>
 
@@ -85,13 +85,14 @@
                 <div class="table-header">
                     <h3 class="table-title">All Teachers</h3>
                     <div>
-                        <span>Showing 1-10 of 68 teachers</span>
+                        <span>Showing 1-10 </span>
                     </div>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <th>Teacher</th>
+                            <th>Name</th>
                             <th>TSC Number</th>
                             <th>Grade Level</th>
                             <th>Subjects</th>
@@ -100,98 +101,34 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for teacher in allteachers %}
                         <tr>
                             <td>
                                 <div class="teacher-name">
-                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Teacher" class="teacher-avatar">
-                                    <span>Jane Muthoni</span>
+                                    <img src="{{ url_for('static', filename='images/profile_images/' ~ teacher[9]) }}" alt="Teacher" class="teacher-avatar">
                                 </div>
                             </td>
-                            <td>1234567</td>
-                            <td>Grade 3</td>
-                            <td>English, Science</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td style="display: flex; gap: 5px;">
-                                <button class="action-btn view-btn" onclick="openTeacherModal()">
-                                    <i class="fas fa-eye"></i>
+                            <td>{{ teacher[1] }}<span> {{ teacher[2] }}</span></td>
+                            <td>{{ teacher[11] }}</td>
+                            <td>{{ teacher[3]}}</td>
+                            <td>--</td>
+                            {% if teacher[13] == 'active' %}
+                                <td><span class="status status-active">{{ teacher[13] }}</span></td>
+                            {% else %}
+                                <td><span class="status status-inactive">{{ teacher[13] }}</span></td>
+                            {% endif %}
+                            <td style="display: flex;"> 
+                                <button class="action-btn view-btn" onclick="openTeacherModal({{ teacher[0] }})">View <!--<i class="fas fa-eye"></i>--></button>
                                 </button>
                                 <button class="action-btn edit-btn">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="action-btn delete-btn">
+                                <!-- <button class="action-btn delete-btn">
                                     <i class="fas fa-trash"></i>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="teacher-name">
-                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Teacher" class="teacher-avatar">
-                                    <span>John Kamau</span>
-                                </div>
-                            </td>
-                            <td>2345678</td>
-                            <td>Grade 5</td>
-                            <td>Mathematics, Science</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openTeacherModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="teacher-name">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Teacher" class="teacher-avatar">
-                                    <span>Mary Wanjiku</span>
-                                </div>
-                            </td>
-                            <td>3456789</td>
-                            <td>Pre-Primary</td>
-                            <td>All Subjects</td>
-                            <td><span class="status status-active">Active</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openTeacherModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="teacher-name">
-                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Teacher" class="teacher-avatar">
-                                    <span>James Omondi</span>
-                                </div>
-                            </td>
-                            <td>4567890</td>
-                            <td>Grade 4</td>
-                            <td>Kiswahili, Social Studies</td>
-                            <td><span class="status status-inactive">On Leave</span></td>
-                            <td>
-                                <button class="action-btn view-btn" onclick="openTeacherModal()">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -240,17 +177,17 @@
                     <div class="detail-value">Bachelor of Education</div>
                 </div>
             </div>
-            <div class="subjects-taught">
+            <!-- <div class="subjects-taught">
                 <label>Subjects Taught</label>
                 <div class="subjects-list">
                     <span class="subject-tag">English</span>
                     <span class="subject-tag">Science</span>
                     <span class="subject-tag">CBC Trained</span>
                 </div>
-            </div>
+            </div> -->
             <div class="modal-footer" style="margin-top: 20px; display: flex; justify-content: flex-end;">
                 <button class="btn btn-outline" onclick="closeTeacherModal()">Close</button>
-                <button class="btn btn-primary">Edit Profile</button>
+                <!-- <button class="btn btn-primary">Edit Profile</button> -->
             </div>
         </div>
     </div>

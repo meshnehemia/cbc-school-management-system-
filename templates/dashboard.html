@@ -9,7 +9,7 @@
 
         <div>
             <h4>{{ details['first_name'] }}  {{ details['last_name']}}</h4>
-            <p>Head Teacher</p>
+            <p>Admin</p>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
     <div class="card">
         <div class="card-header">
             <div>
-                <h3>1,245</h3>
+                <h3>{{ students_number[0] }}</h3>
                 <p>Total Students</p>
             </div>
             <div class="card-icon students">
@@ -30,7 +30,7 @@
     <div class="card">
         <div class="card-header">
             <div>
-                <h3>68</h3>
+                <h3>{{ teachers_number[0] }}</h3>
                 <p>Teachers</p>
             </div>
             <div class="card-icon teachers">
@@ -80,20 +80,22 @@
     <div class="section">
         <div class="section-header">
             <div class="section-title">Recent Activities</div>
-            <div class="see-all">View All</div>
+            <!-- <div class="see-all">View All</div> -->
         </div>
         <div class="activities-list">
+            {% for activity in history %}
             <div class="activity-item">
                 <div class="activity-icon">
                     <i class="fas fa-book"></i>
                 </div>
                 <div class="activity-details">
-                    <h4>New Lesson Plan Added</h4>
-                    <p>Grade 4 Mathematics - Fractions</p>
-                    <div class="activity-time">10 mins ago</div>
+                    <h4>{{ activity[0] }}</h4>
+                    <p>{{ activity[1] }} </p>
+                    <div class="activity-time">{{ activity[2] }} - <span>{{activity[3]}} {{activity[4]}}</span></div>
                 </div>
             </div>
-            <div class="activity-item">
+            {% endfor %}
+            <!-- <div class="activity-item">
                 <div class="activity-icon">
                     <i class="fas fa-clipboard-check"></i>
                 </div>
@@ -122,7 +124,7 @@
                     <p>CBC Assessment Methods</p>
                     <div class="activity-time">Yesterday</div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
